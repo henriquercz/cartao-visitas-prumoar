@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Layout Test - PrumoAr</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #1A1A1A;
+      color: white;
+      padding: 20px;
+    }
+    
+    .test-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .breakpoint-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(37, 211, 102, 0.9);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .breakpoint-info .viewport-size {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    
+    .breakpoint-info .layout-type {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #25D366;
+    }
+    
+    .services-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    
+    .services-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+    
+    /* Tablet Layout - 2 columns */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+    
+    /* Desktop Layout - 4 columns */
+    @media (min-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+      }
+    }
+    
+    .service-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .service-card:hover {
+      transform: scale(1.05) translateY(-8px);
+      border-color: rgba(192, 192, 192, 0.3);
+      box-shadow: 0 12px 48px rgba(192, 192, 192, 0.2);
+    }
+    
+    .card-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #C0C0C0;
+      margin-bottom: 10px;
+    }
+    
+    .card-title {
+      font-size: 18px;
+      color: white;
+      margin-bottom: 8px;
+    }
+    
+    .card-info {
+      font-size: 14px;
+      color: #B8B8B8;
+    }
+    
+    .test-instructions {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      border-left: 4px solid #25D366;
+    }
+    
+    .test-instructions h2 {
+      color: #25D366;
+      margin-bottom: 15px;
+    }
+    
+    .test-instructions ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    .breakpoint-markers {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+    
+    .marker {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      font-size: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .marker.active {
+      background: #25D366;
+      border-color: #25D366;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="breakpoint-info">
+    <div class="viewport-size" id="viewport-size">0px</div>
+    <div class="layout-type" id="layout-type">Layout Type</div>
+  </div>
+  
+  <div class="test-container">
+    <h1>🧪 Grid Layout Test - PrumoAr Landing Page</h1>
+    
+    <div class="test-instructions">
+      <h2>📋 Testing Instructions</h2>
+      <ul>
+        <li><strong>Resize your browser window</strong> to test different breakpoints</li>
+        <li><strong>Use DevTools Device Toolbar</strong> (F12 → Ctrl+Shift+M) for precise viewport sizes</li>
+        <li><strong>Watch the top-right indicator</strong> to see current viewport width and layout type</li>
+        <li><strong>Verify card arrangement</strong> matches the expected layout for each breakpoint</li>
+      </ul>
+    </div>
+    
+    <div class="breakpoint-markers">
+      <div class="marker" data-breakpoint="320">320px (Mobile)</div>
+      <div class="marker" data-breakpoint="375">375px (Mobile)</div>
+      <div class="marker" data-breakpoint="768">768px (Tablet)</div>
+      <div class="marker" data-breakpoint="1024">1024px (Desktop)</div>
+      <div class="marker" data-breakpoint="1440">1440px (Desktop)</div>
+      <div class="marker" data-breakpoint="1920">1920px (Large)</div>
+    </div>
+    
+    <div class="services-section">
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="card-number">1</div>
+          <div class="card-title">Service Card 1</div>
+          <div class="card-info">Instalação de Ar Condicionado</div>
+        </div>
+        
+        <div class="service-card">
+          <div class="card-number">2</div>
+          <div class="card-title">Service Card 2</div>
+          <div class="card-info">Manutenção e Limpeza</div>
+        </div>
+        
+        <div class="service-card">
+          <div class="card-number">3</div>
+          <div class="card-title">Service Card 3</div>
+          <div class="card-info">Refrigeração Comercial</div>
+        </div>
+        
+        <div class="service-card">
+          <div class="card-number">4</div>
+          <div class="card-title">Service Card 4</div>
+          <div class="card-info">Automação de Fluxo de Ar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function updateViewportInfo() {
+      const width = window.innerWidth;
+      const viewportSize = document.getElementById('viewport-size');
+      const layoutType = document.getElementById('layout-type');
+      
+      viewportSize.textContent = width + 'px';
+      
+      let layout = '';
+      let columns = 0;
+      
+      if (width < 768) {
+        layout = '📱 Mobile (1 Column)';
+        columns = 1;
+      } else if (width >= 768 && width < 1024) {
+        layout = '📱 Tablet (2 Columns)';
+        columns = 2;
+      } else {
+        layout = '💻 Desktop (4 Columns)';
+        columns = 4;
+      }
+      
+      layoutType.textContent = layout;
+      
+      // Update active marker
+      const markers = document.querySelectorAll('.marker');
+      markers.forEach(marker => {
+        const breakpoint = parseInt(marker.dataset.breakpoint);
+        if (Math.abs(width - breakpoint) < 50) {
+          marker.classList.add('active');
+        } else {
+          marker.classList.remove('active');
+        }
+      });
+      
+      // Log to console for debugging
+      console.log(`Viewport: ${width}px | Layout: ${columns} columns`);
+    }
+    
+    // Update on load and resize
+    updateViewportInfo();
+    window.addEventListener('resize', updateViewportInfo);
+    
+    // Log grid computed styles
+    window.addEventListener('load', () => {
+      const grid = document.querySelector('.services-grid');
+      const computedStyle = window.getComputedStyle(grid);
+      console.log('Grid Template Columns:', computedStyle.gridTemplateColumns);
+      console.log('Grid Gap:', computedStyle.gap);
+    });
+  </script>
+</body>
+</html>
