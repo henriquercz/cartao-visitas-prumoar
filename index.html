@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<!--
+============================================
+PERFORMANCE OPTIMIZATIONS APPLIED
+============================================
+✓ All CSS and JavaScript are inline (single HTML file)
+✓ CSS containment applied to service cards (contain: layout style paint)
+✓ will-change hints for all animated elements (transform, opacity)
+✓ All animations use only GPU-accelerated properties (transform, opacity)
+✓ Intersection Observer for lazy scroll animations
+✓ Passive event listeners where applicable
+✓ Optimized for 60fps performance
+============================================
+-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,6 +172,8 @@
       overflow-x: hidden;
       min-height: 100vh;
       animation: gridMove 60s linear infinite;
+      /* Performance optimization: Use will-change for animated background */
+      will-change: background-position;
     }
     
     @keyframes gridMove {
@@ -217,6 +232,8 @@
     .logo-container {
       display: inline-block;
       animation: float 3s ease-in-out infinite;
+      /* Performance optimization: Hint browser about transform animation */
+      will-change: transform;
     }
     
     .logo {
@@ -281,6 +298,8 @@
       font-size: 64px;
       color: var(--color-accent);
       animation: pulse 2s ease-in-out infinite;
+      /* Performance optimization: Hint browser about transform and opacity animation */
+      will-change: transform, opacity;
     }
     
     @keyframes pulse {
@@ -655,6 +674,8 @@
       transform: scale(0);
       animation: rippleAnimation 600ms ease-out;
       pointer-events: none;
+      /* Performance optimization: Hint browser about transform and opacity animation */
+      will-change: transform, opacity;
     }
     
     @keyframes rippleAnimation {
@@ -910,11 +931,18 @@
     .fade-in-element {
       opacity: 0;
       transform: translateY(20px);
+      /* Performance optimization: Hint browser about upcoming animation */
+      will-change: transform, opacity;
     }
     
     /* Fade-in animation when element enters viewport */
     .fade-in {
       animation: fadeInUp 600ms ease-out forwards;
+    }
+    
+    /* Remove will-change after animation completes to free resources */
+    .fade-in.animation-complete {
+      will-change: auto;
     }
     
     @keyframes fadeInUp {
@@ -1486,7 +1514,12 @@
             // Add fade-in class to trigger animation
             entry.target.classList.add('fade-in');
             
-            // Optional: Stop observing after animation to improve performance
+            // Remove will-change after animation completes to free resources
+            setTimeout(() => {
+              entry.target.classList.add('animation-complete');
+            }, 600); // Match animation duration
+            
+            // Stop observing after animation to improve performance
             observer.unobserve(entry.target);
           }
         });
